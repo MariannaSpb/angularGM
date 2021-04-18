@@ -1,0 +1,21 @@
+@import  "../../../sass/variables";
+
+.search {
+  &__input {
+    min-height: 38px;
+    min-width: 400px;
+    padding: 12px 18px;
+    margin-right: 12px;
+    box-sizing: border-box;
+
+    &.mat-input-element {
+      margin-top: 0;
+    }
+  }
+  &__form-button {
+    background-color: $dark-lime-green;
+  }
+  &__form-group {
+    display: flex;
+  }
+}

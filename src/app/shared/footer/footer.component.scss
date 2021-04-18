@@ -1,0 +1,17 @@
+
+@import  "../../../sass/variables";
+.footer {
+    background-color: #414552;
+    color: $white;
+    padding: 25px 0 25px 0;
+
+  &__copyright {
+    margin: 0;
+    font-size: $font-size-small;
+  }
+  &__inner {
+    width: calc(100% - 150px);
+    margin: auto;
+    text-align: end;
+  }
+}
