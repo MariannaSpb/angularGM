@@ -1,5 +1,5 @@
 <ul class="course__list">
-  <app-course-item *ngFor="let course of courseList; let i = index; trackBy: trackByFn"
+  <app-course-item  data-marker="courses" *ngFor="let course of courseList; let i = index; trackBy: trackByFn"
   [course]="course"
   (deleteCourse)="onDeleteCourse($event)"
   (editCourse)="onEditCourse($event)" 
