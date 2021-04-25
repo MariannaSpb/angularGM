@@ -8,16 +8,16 @@ import { CourseInstance } from '../course';
 })
 export class CourseItemComponent implements OnChanges {
   @Input() public course: CourseInstance;
-  @Output() public deleteCourseEmitter = new EventEmitter();
-  @Output() public editCourseEmitter = new EventEmitter();
+  @Output() public deleteCourse = new EventEmitter();
+  @Output() public editCourse = new EventEmitter();
 
 
   public onDeleteHandler(item: CourseInstance): void {
-    this.deleteCourseEmitter.emit(this.course);
+    this.deleteCourse.emit(this.course);
   }
 
   public onEditHandler(item: CourseInstance): void {
-    this.editCourseEmitter.emit(this.course);
+    this.editCourse.emit(this.course);
   }
 
   ngOnChanges(changes: SimpleChanges) {

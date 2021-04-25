@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { COURSES } from '../mock-data';
 
 @Component({
@@ -6,19 +6,15 @@ import { COURSES } from '../mock-data';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss']
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent  {
   courseList = COURSES;
 
-  ngOnInit(): void {
-    console.log('OnInit')
-  }
 
-
-  public deleteCourse(item): void {
+  public onDeleteCourse(item): void {
     console.log('this course was delete:', item.id)
   }
 
-  public editCourse(item): void {
+  public onEditCourse(item): void {
     console.log('this course was edite:', item.id)
   }
 
