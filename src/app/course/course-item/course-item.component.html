@@ -1,1 +1,30 @@
-<p>course-item works!</p>
+<li class="course__item">
+  <div class="course__header">
+    <h2 class="course__title">{{ course.title}}</h2>
+    <div class="course__info">
+      <p class="course__date-info">
+        <span class="course__duration">{{ course.duration }}</span>
+        <span class="course__date">{{ course.date }}</span>
+      </p>
+    </div>
+  </div>
+  <div class="course__content">
+    <p class="course__description">{{ course.description }}</p>
+    <div class="course__controls">
+      <button mat-raised-button
+      color="primary"
+      class="course__button course__button--edit"
+      (click)="onEditHandler($event)"
+      >Edit
+      </button>
+
+      <button mat-raised-button
+      type="submit"
+      color="primary"
+      class="course__button course__button--delete"
+      (click)="onDeleteHandler($event)"
+      >Delete
+      </button>
+    </div>
+  </div>
+</li>

@@ -1,1 +1,8 @@
-<p>course-list works!</p>
+<ul class="course__list">
+  <app-course-item *ngFor="let course of courseList; let i = index; trackBy: trackByFn"
+  [course]="course"
+  (deleteCourse)="onDeleteCourse($event)"
+  (editCourse)="onEditCourse($event)" 
+  ></app-course-item>
+</ul>
+

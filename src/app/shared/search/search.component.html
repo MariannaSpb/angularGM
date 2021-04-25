@@ -1,0 +1,23 @@
+<div class="search">
+  <form  class="search__form" (ngSubmit)="onSubmit()">
+    <div class="search__form-group">
+      <label for="search" class="search__label"></label>
+      <!-- <mat-label or="search"></mat-label> -->
+      <input matInput
+      type="text"
+      class="search__input"
+      id="search"
+      [placeholder]="placeholder"
+      [(ngModel)]="inputValue"
+      name="search"
+      >
+      <button mat-raised-button
+      type="submit"
+      color="primary"
+      class="search__form-button"
+      >
+      Search
+      </button>
+    </div>
+  </form>
+</div>
