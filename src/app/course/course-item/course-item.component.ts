@@ -21,7 +21,7 @@ export class CourseItemComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges')
+    console.log('ngOnChanges', this.course)
   }
 
 }

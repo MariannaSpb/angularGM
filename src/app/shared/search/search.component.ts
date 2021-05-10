@@ -13,6 +13,7 @@ export class SearchComponent {
 
  onSubmit() {
    console.log("Start search!", this.inputValue)
+   this.searchData.emit(this.inputValue);
   }
 
 }

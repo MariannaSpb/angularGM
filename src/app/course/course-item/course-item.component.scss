@@ -22,6 +22,8 @@
     font-size: 24px;
 }
 
+
+
 .course__header {
     display: flex;
     justify-content: space-between;
@@ -38,6 +40,9 @@
 
 .course__date-info {
     margin: 0;
+    display: flex;
+    justify-content: space-between;
+    min-width: 160px;
 }
 
 .course__description {
@@ -50,4 +55,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+
+.course__rating {
+    polygon {
+        fill: #ffd055;
+      }
+}
+
+.rated {
+    background-color: #effaed;
+
 }
