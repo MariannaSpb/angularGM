@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
   <input class="search__input" 
           [(ngModel)]="value" 
           name="value"
-          [placeholder]="placeholder"
+          [placeholder]="placeholder" 
   >
 </form>
   `

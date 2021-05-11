@@ -15,7 +15,7 @@ export class BorderDirective implements OnInit {
   ngOnInit() {
     this.elementRef.nativeElement.style.border = this.setBorder();
   }
-  public setBorder(): string {
+  private setBorder(): string {
     const diff = new Date(Number(this.currentDate) - this.interval);
     if(this.course.date < new Date() && this.course.date >= diff) {
       return 'solid 2px green';
