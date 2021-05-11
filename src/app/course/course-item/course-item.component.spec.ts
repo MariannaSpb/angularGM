@@ -95,7 +95,6 @@ describe('CourseItemComponent', () => {
       it('sshould call onEditHandler when clicking on the Delete button', () => {
         const deleteButton = element.query(By.css('.course__button--delete')).nativeElement;
         deleteButton.click();
-        //fixture.detectChanges();
 
         expect(component.onDeleteHandler).toHaveBeenCalled();
       });
