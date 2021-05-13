@@ -1,8 +1,16 @@
-<ul class="course__list">
-  <app-course-item *ngFor="let course of courseList; let i = index; trackBy: trackByFn"
-  [course]="course"
-  (deleteCourse)="onDeleteCourse($event)"
-  (editCourse)="onEditCourse($event)" 
-  ></app-course-item>
-</ul>
+<div>
+  <app-search (searchData)="onFilterCourses($event)"></app-search>
+  <ul class="course__list">
+    <ng-container *ngIf="courseList; else noMessage">
+        <app-course-item  data-marker="courses" *ngFor="let course of courseList | orderBy; let i = index; trackBy: trackByFn"
+        [course]="course"
+        (deleteCourse)="onDeleteCourse($event)"
+        (editCourse)="onEditCourse($event)" 
+        ></app-course-item>
+    </ng-container>
+    <ng-template #noMessage>
+        <p>No data. Feel free to add new course</p>
+    </ng-template>
+  </ul>
+</div>
 

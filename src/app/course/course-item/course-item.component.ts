@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { CourseInstance } from '../course';
 
 @Component({
@@ -21,7 +21,7 @@ export class CourseItemComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges')
+    console.log('ngOnChanges', this.course)
   }
 
 }

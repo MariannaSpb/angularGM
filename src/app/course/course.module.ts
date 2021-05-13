@@ -5,6 +5,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CourseListComponent } from './course-list/course-list.component';
 import { CourseItemComponent } from './course-item/course-item.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -15,6 +16,7 @@ import { CourseItemComponent } from './course-item/course-item.component';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    SharedModule,
   ],
   exports: [CourseListComponent, CourseItemComponent]
 })
