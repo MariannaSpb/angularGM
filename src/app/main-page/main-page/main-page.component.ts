@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { COURSES } from 'src/app/course/mock-data';
+import { Component, Input, OnInit } from '@angular/core';
+import { CourseInstance } from 'src/app/course/course';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
 
 @Component({
@@ -9,10 +9,14 @@ import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
   providers: [FilterPipe]
 })
 export class MainPageComponent {
-
-  constructor(private filter: FilterPipe) {}
-
-  public onLoadCourse(): void {
+@Input() isAuthenticated;
+courseList: CourseInstance[];
+  onLoadCourse(): void {
     console.log("Load more courses");
   }
+  
+  openAddCourse() {
+    //open modal handler
+  }
+
 }

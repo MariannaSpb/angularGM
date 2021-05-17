@@ -12,6 +12,8 @@ import { BorderDirective } from './border.directive';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
+// import { LoginPageComponent } from './login-page/login-page.component';
 
 
 @NgModule({
@@ -24,16 +26,18 @@ import { FilterPipe } from './pipes/filter.pipe';
     DurationPipe,
     OrderByPipe,
     FilterPipe,
+    // LoginPageComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     MatButtonModule,
     MatInputModule,
+    MatDialogModule,
     MatFormFieldModule,
 
   ],
-  exports: [ HeaderComponent, BreadcrumbsComponent, FooterComponent, SearchComponent, BorderDirective, DurationPipe, OrderByPipe, FilterPipe],
+  exports: [ HeaderComponent, BreadcrumbsComponent, FooterComponent, SearchComponent, BorderDirective, DurationPipe, OrderByPipe, FilterPipe, MatDialogModule],
   providers: [DatePipe]
 })
 export class SharedModule { }

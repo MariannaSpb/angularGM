@@ -1,0 +1,19 @@
+<div class="login-form">
+    <div class="login-form-content">
+        <h2>Login</h2>
+        <form>
+            <div>
+                <p>E-mail:</p>
+                <input type="text" placeholder="email@gmail.com" name="login" [(ngModel)]="login" autocomplete="off">
+            </div>
+            <div>
+                <p>Password:</p>
+                <input type="password" placeholder="password" name="password" [(ngModel)]="password" autocomplete="off">
+            </div>
+            <div class="">
+                <a class="forgot-password" href="">Forgot password?</a>
+                <button (click)="onSubmit()">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

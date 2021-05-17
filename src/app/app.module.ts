@@ -7,6 +7,8 @@ import { SharedModule } from './shared/shared.module';
 import { MainPageModule } from './main-page/main-page.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginPageModule } from './login-page/login-page.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     SharedModule,
     MainPageModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LoginPageModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

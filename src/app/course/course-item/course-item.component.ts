@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CourseInstance } from '../course';
 
 @Component({
@@ -6,22 +6,17 @@ import { CourseInstance } from '../course';
   templateUrl: './course-item.component.html',
   styleUrls: ['./course-item.component.scss']
 })
-export class CourseItemComponent implements OnChanges {
+export class CourseItemComponent  {
   @Input() public course: CourseInstance;
   @Output() public deleteCourse = new EventEmitter();
   @Output() public editCourse = new EventEmitter();
 
-
-  public onDeleteHandler(item: CourseInstance): void {
-    this.deleteCourse.emit(this.course);
+  public onDeleteHandler(id: number): void {
+    this.deleteCourse.emit(this.course.id);
   }
 
   public onEditHandler(item: CourseInstance): void {
     this.editCourse.emit(this.course);
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges', this.course)
   }
 
 }
