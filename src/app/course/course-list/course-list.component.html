@@ -1,7 +1,7 @@
 <div>
   <app-search (searchData)="onFilterCourses($event)"></app-search>
   <ul class="course__list">
-    <ng-container *ngIf="courseList; else noMessage">
+    <ng-container *ngIf="courseList.length > 0; else noMessage">
         <app-course-item  data-marker="courses" *ngFor="let course of courseList | orderBy; let i = index; trackBy: trackByFn"
         [course]="course"
         (deleteCourse)="onDeleteCourse($event)"
@@ -9,8 +9,7 @@
         ></app-course-item>
     </ng-container>
     <ng-template #noMessage>
-        <p>No data. Feel free to add new course</p>
+        <p>No data. Feel free to add new course</p> 
     </ng-template>
   </ul>
 </div>
-

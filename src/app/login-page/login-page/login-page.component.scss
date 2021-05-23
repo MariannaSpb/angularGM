@@ -1,0 +1,48 @@
+.login-form {
+    box-shadow: 0 1px 24px 0 rgba(18, 21, 35, 0.08);
+    background-color: white;
+    border-radius: 6px;
+    width:368px;
+
+    &-content {
+        margin: 10px 15px;
+    }
+}
+
+input[type=text], input[type=password], ::placeholder {
+    font-family: SourceSansPro;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    padding: 3px 3px;
+    color: #c0c3ce;
+    width: 100%;
+    letter-spacing: 0.22px;
+}
+
+p {
+    margin-top: 7px;
+    margin-bottom: 0;
+}
+
+button {
+    background-color: #9bc837;
+    color: white;
+    border-radius: 3px;
+    font-family: SourceSansPro;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 10px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.43;
+}
+
+.forgot-password {
+    font-family: SourceSansPro;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+}
