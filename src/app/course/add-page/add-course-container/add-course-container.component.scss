@@ -1,0 +1,73 @@
+@import "../../../../sass/variables" ;
+
+.info-buttons-container {
+    display: flex;
+}
+
+.container {
+  width: calc(100% - 100px);
+  margin: auto;
+}
+
+
+
+.add-form {
+    border-radius: 8px;
+    box-shadow: 0 1px 24px 0 rgba(18, 21, 35, 0.08);
+    background-color: #ffffff;
+    width: 100%;
+  
+    &-content {
+      padding: 15px 20px;
+    }
+  
+    .title {
+      width: 100%;
+    }
+  
+    .info-form {
+      margin: 12px 0 8px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 600;
+      color: $slate-grey;
+    }
+  
+    .required {
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 1.5;
+      letter-spacing: 0.19px;
+      text-align: right;
+      color: $battleship-grey;
+    }
+  
+    .info-field {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+  
+      .date,
+      .duration {
+        width: 40%;
+        display: inline-flex;
+      }
+    }
+  }
+  
+  .closeBtn {
+    background: #d9dbe3;
+    color: #5b616f;
+    font-size: 14px;
+    padding: 6px 16px;
+    border-radius: 4px;
+  }
+  
+  .acceptBtn {
+    background: #9bc837;
+    font-size: 14px;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 4px;
+  }
