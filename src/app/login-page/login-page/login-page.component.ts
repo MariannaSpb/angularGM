@@ -15,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  onSubmitButtonClick() {
     if(this.login.length > 0 && this.password.length > 0) {
       console.log('Logged in successfully');
       this.authService.login({

@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { CourseInstance } from '../course';
 import { CourseService } from '../course.service';
 
@@ -10,40 +12,29 @@ import { CourseService } from '../course.service';
   providers: [FilterPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseListComponent implements OnInit, OnChanges {
+export class CourseListComponent implements OnInit {
   @Input() courseList: CourseInstance[];
   @Output()
   deleteCourseItem: EventEmitter<number> = new EventEmitter<number>();
   
-  constructor(public detection: ChangeDetectorRef, private filter: FilterPipe, private courseService: CourseService) {}
+  constructor(public detection: ChangeDetectorRef, 
+    private filter: FilterPipe,
+    private courseService: CourseService,
+    private dialog: MatDialog) {}
 
 
   ngOnInit() {
     this.courseList =  this.courseService.getAllCourses();
     console.log("LIST", this.courseList)
   }
-  // ngAfterViewChecked() {
-  // }
-  // ngAfterContentInit() {
-  //   console.log(`ngAfterContentInit`, this.courseList);
-  //   return this.courseList;
-  // }
-
-  // ngDoCheck() {
-  //   // console.log(`ngDoCheck`, this.courseList);
-  //   // return this.courseList;
-  // }
-
-  ngOnChanges() {
-    //this.detection.detectChanges()
-    //console.log(`ngOnChanges`, this.courseList);
-  }
 
   public onDeleteCourse(id): void {
-    this.courseService.openConfirmationModal();
+    confirm("Вы подтверждаете удаление?");
     console.log('this course was delete:', id)
     this.deleteCourseItem.emit(id);
 
+    
+    
     //in modal logic
     this.courseList = this.courseService.removeCourse(id); 
   }

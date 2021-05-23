@@ -9,7 +9,7 @@ import { CourseInstance } from './course';
 export class CourseService {
 
   course: CourseInstance;
-  public courses: CourseInstance [] = [
+  private courses: CourseInstance [] = [
     {
         id: 1,
         title: 'Video Course 1. Name tag',
@@ -39,9 +39,9 @@ export class CourseService {
 
   constructor(private dialog: MatDialog) { }
 
-   openConfirmationModal() {
-    this.dialog.open(ConfirmationModalComponent)
-  }
+  //  openConfirmationModal() {
+  //   this.dialog.open(ConfirmationModalComponent)
+  // }
 
 
   getAllCourses() {
