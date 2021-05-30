@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="add-form">
+      <div class="add-form-content">
+        <h2>New Course</h2>
+        <form>
+          <div>
+            <p class="info-form">
+              Title: <span class="required">*required</span>
+            </p>
+            <input
+              type="text"
+              class="title md-input form-control"
+              required
+              placeholder="Text input"
+              name="title"
+            />
+          </div>
+          <div>
+            <p class="info-form">
+              Description: <span class="required">*required</span>
+            </p>
+            <mat-form-field>
+              <textarea matInput
+                type="text"
+                id="form8"
+                name="description"
+                required
+                placeholder="Add decription"
+                class="form-control"
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div class="info-field">
+            <p class="info-form date">
+              Duration: <span class="required">*required</span>
+            </p>
+            <app-course-duration-input></app-course-duration-input>
+          </div>
+          <div class="info-field">
+            <p class="info-form date">
+              Date: <span class="required">*required</span>
+            </p>
+            <app-course-date-input></app-course-date-input>
+          </div>
+          <div class="">
+            <p class="info-form authors">
+              Authors: <span class="required">*required</span>
+            </p>
+            <app-course-authors-input></app-course-authors-input>
+          </div>
+          <div class="info-buttons-container">
+            <button mat-raised-button type="button" (click)="onCancel()" class="closeBtn">
+              Cancel
+            </button>
+            <button mat-raised-button type="submit" (click)="onSave()" class="ml-2 acceptBtn">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

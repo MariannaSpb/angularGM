@@ -17,7 +17,7 @@ export class CourseListComponent implements OnInit {
   @Output()
   deleteCourseItem: EventEmitter<number> = new EventEmitter<number>();
   
-  constructor(public detection: ChangeDetectorRef, 
+  constructor(
     private filter: FilterPipe,
     private courseService: CourseService,
     private dialog: MatDialog) {}
@@ -32,10 +32,6 @@ export class CourseListComponent implements OnInit {
     confirm("Вы подтверждаете удаление?");
     console.log('this course was delete:', id)
     this.deleteCourseItem.emit(id);
-
-    
-    
-    //in modal logic
     this.courseList = this.courseService.removeCourse(id); 
   }
 

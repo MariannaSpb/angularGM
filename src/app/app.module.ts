@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageModule } from './login-page/login-page.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CourseModule } from './course/course.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,9 +19,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     SharedModule,
     MainPageModule,
+    CourseModule,
     BrowserAnimationsModule,
     LoginPageModule,
     MatDialogModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

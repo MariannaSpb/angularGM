@@ -1,0 +1,5 @@
+<div>
+    <input type="number" class="duration" required placeholder="Minutes" name="duration"
+     [(ngModel)]="duration">
+     <span class="hours" *ngIf="duration">{{duration | duration}}</span>
+</div>

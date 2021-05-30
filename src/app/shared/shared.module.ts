@@ -26,7 +26,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     DurationPipe,
     OrderByPipe,
     FilterPipe,
-    // LoginPageComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +37,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 
   ],
   exports: [ HeaderComponent, BreadcrumbsComponent, FooterComponent, SearchComponent, BorderDirective, DurationPipe, OrderByPipe, FilterPipe, MatDialogModule],
-  providers: [DatePipe]
+  providers: [DatePipe, DurationPipe]
 })
 export class SharedModule { }
