@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseInstance } from '../../course';
 import { CourseService } from '../../course.service';
 
@@ -9,10 +10,13 @@ import { CourseService } from '../../course.service';
 })
 export class AddCourseContainerComponent implements OnInit {
   course: CourseInstance;
-  
-  constructor(public coursesService: CourseService,) { } 
+  constructor(public coursesService: CourseService, private router: Router,  private route: ActivatedRoute) { } 
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((data) => {
+      const id = +data.get('id');
+      this.getCourseDetails(id);
+    });
     this.createNewCourse();
   }
 
@@ -21,12 +25,17 @@ export class AddCourseContainerComponent implements OnInit {
   }
 
 
+  getCourseDetails(id: number): void {
+    this.course = this.coursesService.getCourseById(id);
+  }
+
+
   onCancel() {
-    console.log('cancel')
+    this.router.navigateByUrl('/courses');
   }
 
   onSave() {
-    console.log('save')
+    this.router.navigateByUrl('/courses');
   }
 
 }

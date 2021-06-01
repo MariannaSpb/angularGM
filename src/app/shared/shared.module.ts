@@ -13,7 +13,7 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
-// import { LoginPageComponent } from './login-page/login-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     DurationPipe,
     OrderByPipe,
     FilterPipe,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
 
   ],
-  exports: [ HeaderComponent, BreadcrumbsComponent, FooterComponent, SearchComponent, BorderDirective, DurationPipe, OrderByPipe, FilterPipe, MatDialogModule],
-  providers: [DatePipe, DurationPipe]
+  exports: [ HeaderComponent, BreadcrumbsComponent, PageNotFoundComponent, FooterComponent, SearchComponent, BorderDirective, DurationPipe, OrderByPipe, FilterPipe, MatDialogModule],
+  providers: [DatePipe]
 })
 export class SharedModule { }

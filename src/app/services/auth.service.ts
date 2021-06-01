@@ -7,17 +7,19 @@ import { IUser } from '../user';
 })
 export class AuthService {
   user: IUser;
-  isAuth: boolean = true;
+  isAuth: boolean = false;
+  redirectUrl: string;
 
   login(user) {
+    this.isAuth = true;
     return localStorage.setItem('token', JSON.stringify(user));
-  }
+    
+  } 
 
   logout() {
     localStorage.removeItem('token');
   }
   isAuthenticated() {
-    console.log('isAuth', this.isAuth)
   return this.isAuth;
   }
 

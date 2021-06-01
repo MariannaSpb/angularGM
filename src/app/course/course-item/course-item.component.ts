@@ -7,10 +7,13 @@ import { CourseInstance } from '../course';
   styleUrls: ['./course-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class CourseItemComponent  {
   @Input() public course: CourseInstance;
   @Output() public deleteCourse = new EventEmitter();
   @Output() public editCourse = new EventEmitter();
+  
+  
 
   public onDeleteHandler(id: number): void {
     this.deleteCourse.emit(this.course.id);

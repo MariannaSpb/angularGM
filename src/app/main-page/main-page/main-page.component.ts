@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { CourseInstance } from 'src/app/course/course';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
 
@@ -9,14 +10,15 @@ import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
   providers: [FilterPipe]
 })
 export class MainPageComponent {
-@Input() isAuthenticated;
-courseList: CourseInstance[];
+  @Input() isAuthenticated;
+  courseList: CourseInstance[];
+  constructor(private router: Router) {}
+
   onLoadCourse(): void {
-    console.log("Load more courses");
   }
   
   openAddCourse() {
-    //open modal handler
+    this.router.navigateByUrl('/courses/new');
   }
 
 }

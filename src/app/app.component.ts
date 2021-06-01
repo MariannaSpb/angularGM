@@ -9,12 +9,9 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   title = 'video-portal';
   isAuthenticated;
-  constructor(private authServise: AuthService){} //private cdRef: ChangeDetectorRef
+  constructor(private authService: AuthService){} //private cdRef: ChangeDetectorRef
 
   ngOnInit() {
-    this.isAuthenticated = this.authServise.isAuthenticated();
-    // this.cdRef.detectChanges();
-  //  console.log('INIT APP', this.authServise.isAuthenticated())
-  //  console.log('INIT APP isAuthenticated', this.isAuthenticated)
+    this.authService.isAuthenticated();
   }
 }

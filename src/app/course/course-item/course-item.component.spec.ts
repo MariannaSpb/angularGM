@@ -70,7 +70,6 @@ describe('CourseItemComponent', () => {
   });
 
   it('should create', () => {
-    console.log('component', component)
     expect(component).toBeTruthy();
   });
 

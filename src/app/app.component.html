@@ -1,7 +1,10 @@
-<div class="container">
+<div class="app-body">
   <app-header [isAuthenticated]="isAuthenticated"></app-header>
-  <app-main-page [isAuthenticated]="isAuthenticated"></app-main-page>
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+  <!-- <app-main-page [isAuthenticated]="isAuthenticated"></app-main-page>
   <app-login-page></app-login-page>
-  <app-add-course-container></app-add-course-container>
-  <app-footer></app-footer>
+  <app-add-course-container></app-add-course-container> -->
+  <app-footer class="app-footer"></app-footer>
 </div>
