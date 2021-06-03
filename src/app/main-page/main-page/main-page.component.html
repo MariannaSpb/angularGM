@@ -1,14 +1,15 @@
-<app-breadcrumbs *ngIf="isAuthenticated"></app-breadcrumbs>
-<main class="main-page">
+
+<section class="main-page">
   <button mat-raised-button
-                type="submit"
-                color="primary"
-                class="main-page__button main-page__button--add"
-                (click)="openAddCourse()"
-                ><span class="btn-add"></span>
+          type="submit"
+          color="primary"
+          class="main-page__button main-page__button--add"
+          (click)="openAddCourse()"
+          >
+          <span class="btn-add"></span>
                 Add course
-                </button>
-  <app-course-list [courseList]="courseList"></app-course-list> 
+  </button>
+  <app-course-list [courseList]="courseList"></app-course-list>  
   <button mat-raised-button
   type="submit"
   class="main-page__button main-page__button--load"
@@ -16,4 +17,4 @@
   >
   Load more
   </button>
-</main>
+</section>

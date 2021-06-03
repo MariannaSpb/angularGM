@@ -17,7 +17,6 @@ export class ConfirmationModalComponent  {
   }
 
   onSubmit() {
-    console.log('onSubmit')
     this.dialogRef.close();
   }
 

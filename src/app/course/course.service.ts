@@ -62,7 +62,6 @@ export class CourseService {
 
   removeCourse(id: number) {
     const item = this.courses.find(item => item.id == id)
-    console.log('Course was remove: ', item)
     this.courses.splice(this.courses.indexOf(item), 1);
     return this.courses;
   }

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { CourseInstance } from '../course';
@@ -16,28 +17,32 @@ export class CourseListComponent implements OnInit {
   @Input() courseList: CourseInstance[];
   @Output()
   deleteCourseItem: EventEmitter<number> = new EventEmitter<number>();
+
+  public message: string;
   
   constructor(
     private filter: FilterPipe,
     private courseService: CourseService,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog,
+    private router: Router,
+    ) {}
 
 
   ngOnInit() {
     this.courseList =  this.courseService.getAllCourses();
-    console.log("LIST", this.courseList)
   }
 
   public onDeleteCourse(id): void {
     confirm("Вы подтверждаете удаление?");
-    console.log('this course was delete:', id)
     this.deleteCourseItem.emit(id);
     this.courseList = this.courseService.removeCourse(id); 
   }
 
 
-  public onEditCourse(item): void {
-    console.log('this course was edite:', item.id)
+  public onEditCourse(item: CourseInstance): void {
+    this.router.navigateByUrl(`courses/${item.id}`, {
+      queryParams: {...item},
+    })
   }
 
   public trackByFn(index: number): number {

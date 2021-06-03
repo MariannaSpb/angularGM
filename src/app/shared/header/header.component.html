@@ -4,12 +4,12 @@
           <img class="header__logo-img" src="../../../assets/images/play-img.svg" alt="логотип страницы видеокурса" draggable="false" width="28" height="28">
           VIDEO COURSE
         </a>
-        <ul *ngIf="isAuthenticated" class="header__login">
+        <ul  class="header__login">
             <li class="header__login-item">
               <svg class="header__login-img" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 2"><g data-name="people"><rect width="24" height="24" opacity="0"/><path d="M9 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"/><path d="M17 13a3 3 0 1 0-3-3 3 3 0 0 0 3 3z"/><path d="M21 20a1 1 0 0 0 1-1 5 5 0 0 0-8.06-3.95A7 7 0 0 0 2 20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1"/></g></g></svg>
-                <a href="#" class="header__login-link">User login</a>
+              <span *ngIf="user" class="user-enter">{{user.firstName}} {{user.lastName}} </span>
             </li>
-            <li class="header__login-item">
+            <li class="header__login-item" *ngIf="isSignOutBtnVisible">
               <svg class="header__login-img"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-login" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M10,17V14H3V10H10V7L15,12L10,17M10,2H19A2,2 0 0,1 21,4V20A2,2 0 0,1 19,22H10A2,2 0 0,1 8,20V18H10V20H19V4H10V6H8V4A2,2 0 0,1 10,2Z" />
               </svg>
@@ -18,3 +18,4 @@
         </ul>
     </div>
 </header>
+
