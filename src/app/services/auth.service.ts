@@ -1,21 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../user';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class UserDataService {
-  private readonly varName = 'token';
-
-  getUserData() {
-    return localStorage.getItem(this.varName);
-  }
-
-  setUserData(userData) {
-    localStorage.setItem(this.varName, userData);
-  }
-
-}
+import { UserDataService } from './user-data.service';
 
 @Injectable({
   providedIn: 'root'

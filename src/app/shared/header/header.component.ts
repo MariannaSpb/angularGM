@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, UserDataService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserDataService } from 'src/app/services/user-data.service';
 import { UserInstance } from 'src/app/user';
 
 @Component({
@@ -10,8 +11,7 @@ import { UserInstance } from 'src/app/user';
 })
 export class HeaderComponent implements OnInit {
   @Input() isAuthenticated: boolean;
-  user: UserInstance;
-
+  user;
   isSignOutBtnVisible = false;
 
  constructor(private authService: AuthService, private router: Router, private userDataService: UserDataService){}
@@ -20,12 +20,12 @@ export class HeaderComponent implements OnInit {
     const userData = this.userDataService.getUserData();
 
     this.authService.subscribeOnLogin(() => {
-      this.isSignOutBtnVisible = true;
+      this.isSignOutBtnVisible = true; 
     })
 
-    //does not work :(
     if (userData) {
       this.user = userData;
+      console.log("User", this.user)
       return this.user
     }
   }
