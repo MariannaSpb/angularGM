@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { Course } from 'src/app/models/data-model';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
-import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { CourseInstance } from '../course';
 import { CourseService } from '../course.service';
 
@@ -11,31 +10,36 @@ import { CourseService } from '../course.service';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
   providers: [FilterPipe],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseListComponent implements OnInit {
-  @Input() courseList: CourseInstance[];
+  @Input() courseList: Course[];
   @Output()
   deleteCourseItem: EventEmitter<number> = new EventEmitter<number>();
 
   public message: string;
+  public listBySearch: Course[];
+
   
   constructor(
-    private filter: FilterPipe,
     private courseService: CourseService,
-    private dialog: MatDialog,
     private router: Router,
+    // private cdRef :ChangeDetectorRef,
     ) {}
 
 
   ngOnInit() {
-    this.courseList =  this.courseService.getAllCourses();
+   console.log("ngOnInit courseList", this.courseList);
   }
 
-  public onDeleteCourse(id): void {
+  public onDeleteCourse(id: number): void {
     confirm("Вы подтверждаете удаление?");
     this.deleteCourseItem.emit(id);
-    this.courseList = this.courseService.removeCourse(id); 
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.courseList = changes.courseList.currentValue;
+    console.log("ngOnChanges", this.courseList)
   }
 
 
@@ -49,8 +53,13 @@ export class CourseListComponent implements OnInit {
     return index;
   }
 
-  onFilterCourses(event) {
-    this.courseList = this.filter.transform(this.courseList, event);
+  onFilterCourses(query: string) {
+    if(query.length > 0) {
+      this.courseService.searchCourse(query).subscribe(courses => {
+        this.courseList = courses
+        return;
+      })
+    } 
   }
 
 

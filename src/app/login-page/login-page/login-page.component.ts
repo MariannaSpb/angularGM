@@ -17,21 +17,32 @@ export class LoginPageComponent implements OnInit {
     this.authService.isAuthenticated();
   }
 
+  // onSubmitButtonClick() {
+  //   if(this.login.length > 0 && this.password.length > 0) {
+  //     this.authService.login({
+  //       login: this.login,
+  //       password: this.password,
+  //     });
+  //       console.log('Logged in successfully', this.login);
+  //     const redirect = this.authService.redirectUrl
+  //           ? this.authService.redirectUrl
+  //           : '/courses';
+  //         this.router.navigate([redirect]);
+  //   }
+  //   else {
+  //     console.log("Please, fill the form")
+  //   }
+  // }
   onSubmitButtonClick() {
-    if(this.login.length > 0 && this.password.length > 0) {
-      this.authService.login({
-        login: this.login,
-        password: this.password,
-      });
+    this.authService.login({
+      login: this.login,
+      password: this.password,
+    }).subscribe(
+      () => {
+        this.router.navigateByUrl('/courses');
         console.log('Logged in successfully');
-      const redirect = this.authService.redirectUrl
-            ? this.authService.redirectUrl
-            : '/courses';
-          this.router.navigate([redirect]);
-    }
-    else {
-      console.log("Please, fill the form")
-    }
+      },
+      (error) => console.error(error.error));
   }
 
 }

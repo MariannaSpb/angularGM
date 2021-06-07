@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './search/search.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BorderDirective } from './border.directive';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
@@ -31,6 +31,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
     MatDialogModule,

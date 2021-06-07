@@ -1,11 +1,11 @@
 <li border 
     [course]="course"
     class="course__item"
-    [ngClass]="{ 'rated': course.isRated }"
+    [ngClass]="{ 'rated': course.isTopRated }"
 >
   <div class="course__header">
-    <h2 class="course__title">{{ course.title | uppercase }} 
-      <span *ngIf="course.isRated">
+    <h2 class="course__title">{{ course.name | uppercase }} 
+      <span *ngIf="course.isTopRated">
         <svg height="25" width="23" class="course__rating" data-rating="1">
           <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78" style="fill-rule:nonzero;"/>
         </svg>
@@ -13,7 +13,7 @@
     </h2>
     <div class="course__info">
       <p class="course__date-info">
-        <span class="course__duration">{{ course.duration | duration }}</span>
+        <span class="course__duration"> {{ course.length | duration }}</span>
         <span class="course__date">{{ course.date | date: "d MMM, y" }}</span>
       </p>
     </div>

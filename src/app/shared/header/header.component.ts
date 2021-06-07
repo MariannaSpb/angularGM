@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
     if (userData) {
       this.user = userData;
-      console.log("User", this.user)
+      // console.log("User", this.user)
       return this.user
     }
   }

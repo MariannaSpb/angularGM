@@ -12,7 +12,7 @@ export class SearchComponent {
  public placeholder = "Text to search";
 
  onSubmit() {
-   console.log("Start search!", this.inputValue)
+  //  console.log("Start search!", this.inputValue)
    this.searchData.emit(this.inputValue);
   }
 

@@ -2,8 +2,8 @@
 <div class="container">
     <div class="add-form">
       <div class="add-form-content">
-        <h2>New Course</h2>
-        <form>
+        <h2>{{ title }}</h2>
+        <form [formGroup]="form">
           <div>
             <p class="info-form">
               Title: <span class="required">*required</span>
@@ -14,6 +14,7 @@
               required
               placeholder="Text input"
               name="title"
+              formControlName="title"
             />
           </div>
           <div>
@@ -23,8 +24,9 @@
             <mat-form-field>
               <textarea matInput
                 type="text"
-                id="form8"
+                id="form"
                 name="description"
+                formControlName="description"
                 required
                 placeholder="Add decription"
                 class="form-control"
@@ -35,19 +37,19 @@
             <p class="info-form date">
               Duration: <span class="required">*required</span>
             </p>
-            <app-course-duration-input></app-course-duration-input>
+            <app-course-duration-input name="duration" formControlName="duration"></app-course-duration-input>
           </div>
           <div class="info-field">
             <p class="info-form date">
               Date: <span class="required">*required</span>
             </p>
-            <app-course-date-input></app-course-date-input>
+            <app-course-date-input name="date" formControlName="date"></app-course-date-input>
           </div>
           <div class="">
             <p class="info-form authors">
               Authors: <span class="required">*required</span>
             </p>
-            <app-course-authors-input></app-course-authors-input>
+            <app-course-authors-input formControlName="authors"></app-course-authors-input>
           </div>
           <div class="info-buttons-container">
             <button mat-raised-button type="button" (click)="onCancel()" class="closeBtn">
