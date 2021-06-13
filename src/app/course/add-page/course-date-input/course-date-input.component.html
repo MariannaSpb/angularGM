@@ -4,4 +4,6 @@
   name="date"
   [value]="date"
   required
+  [(ngModel)]="dateValue"
+  (ngModelChange)="onDateChange($event)"
 />

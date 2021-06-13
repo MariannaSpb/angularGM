@@ -5,11 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { MainPageModule } from './main-page/main-page.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginPageModule } from './login-page/login-page.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CourseModule } from './course/course.module';
+import { TokenInterceptor } from './interseptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,13 +22,21 @@ import { CourseModule } from './course/course.module';
     FormsModule,
     SharedModule,
     MainPageModule,
+    HttpClientModule,
     CourseModule,
     BrowserAnimationsModule,
     LoginPageModule,
     MatDialogModule,
+    ReactiveFormsModule,
     
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

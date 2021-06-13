@@ -7,7 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MainPageComponent } from './main-page/main-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     CourseModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   exports: [ MainPageComponent],
 })

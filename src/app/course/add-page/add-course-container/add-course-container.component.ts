@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {  FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseInstance } from '../../course';
+import { tap } from 'rxjs/operators';
+import { Course, CourseModel } from 'src/app/models/data-model';
 import { CourseService } from '../../course.service';
 
 @Component({
@@ -9,24 +11,59 @@ import { CourseService } from '../../course.service';
   styleUrls: ['./add-course-container.component.scss']
 })
 export class AddCourseContainerComponent implements OnInit {
-  course: CourseInstance;
-  constructor(public coursesService: CourseService, private router: Router,  private route: ActivatedRoute) { } 
+  course: Course;
+  mode: string;
+  title: string;
+  newIndex;
+  form: FormGroup;
+
+  constructor(public coursesService: CourseService, private router: Router,  private route: ActivatedRoute) { 
+    this.route.params.pipe(
+      tap(data => {
+        console.log("DATA", data)
+        return data;
+      })
+    ).subscribe(data => {
+      console.log("Subsc data", data);
+      if (data.id) {
+        this.mode = 'Edit';
+        this.title = 'Edit course';
+        return;
+      }
+      this.mode = 'Add';
+      this.title = "Add new course"
+    })
+  } 
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((data) => {
-      const id = +data.get('id');
-      this.getCourseDetails(id);
-    });
+    this.createForm();
     this.createNewCourse();
   }
 
+
+
+  createForm(): void {
+    this.form = new FormGroup({
+      title: new FormControl(''),
+      description: new FormControl(''),
+      duration: new FormControl(0),
+      date: new FormControl(''),
+      authors: new FormControl([]),
+    })
+  }
+
   createNewCourse() {
-    this.coursesService.createCourse();
+    this.newIndex = Math.floor(Math.random() * 5);
+    this.course = new CourseModel(this.newIndex, "", false, new Date(), 0, '', []);
+    this.form.controls.title.setValue(this.course.name);
+    this.form.controls.description.setValue(this.course.description);
   }
 
 
   getCourseDetails(id: number): void {
-    this.course = this.coursesService.getCourseById(id);
+    this.coursesService.getCourseById(id).subscribe(course => {
+      this.course = course;
+    })
   }
 
 
@@ -35,6 +72,7 @@ export class AddCourseContainerComponent implements OnInit {
   }
 
   onSave() {
+    this.coursesService.addCourse(this.course).subscribe(item => item);
     this.router.navigateByUrl('/courses');
   }
 

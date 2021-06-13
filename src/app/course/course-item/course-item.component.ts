@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Course } from 'src/app/models/data-model';
 import { CourseInstance } from '../course';
 
 @Component({
@@ -9,8 +10,8 @@ import { CourseInstance } from '../course';
 })
 
 export class CourseItemComponent  {
-  @Input() public course: CourseInstance;
-  @Output() public deleteCourse = new EventEmitter();
+  @Input() public course: Course;
+  @Output() public deleteCourse: EventEmitter<number> = new EventEmitter<number>();
   @Output() public editCourse = new EventEmitter();
   
   

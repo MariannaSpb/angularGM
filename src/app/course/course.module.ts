@@ -12,7 +12,7 @@ import { CourseDateInputComponent } from './add-page/course-date-input/course-da
 import { CourseDurationInputComponent } from './add-page/course-durarion-input/course-duration-input.component';
 import { CourseAuthorsInputComponent } from './add-page/course-authors-input/course-authors-input.component';
 import { AddCourseContainerComponent } from './add-page/add-course-container/add-course-container.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
 
   exports: [CourseListComponent, CourseItemComponent, AddCourseContainerComponent],

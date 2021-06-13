@@ -12,6 +12,7 @@ import { Injectable } from "@angular/core";
     }
   
     setUserData(userData) {
+      //console.log("userData", userData) //было логин пароль--стал {"token":"58ebfdf7f1f558c5c86e17f6"}
       localStorage.setItem(this.varName, userData);
     }
   

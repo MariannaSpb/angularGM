@@ -9,7 +9,7 @@
           <span class="btn-add"></span>
                 Add course
   </button>
-  <app-course-list [courseList]="courseList"></app-course-list>  
+  <app-course-list [courseList]="courseList" (deleteCourseItem)="deteleCourse($event)"></app-course-list>  
   <button mat-raised-button
   type="submit"
   class="main-page__button main-page__button--load"

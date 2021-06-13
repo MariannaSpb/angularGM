@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Course, LoginRequest, TokenRequest, User } from '../models/data-model';
 import { IUser } from '../user';
 import { UserDataService } from './user-data.service';
 
@@ -10,14 +14,30 @@ export class AuthService {
   isAuth: boolean = false;
   redirectUrl: string;
   onLoginCb;
+  
+  authUrl = 'http://localhost:3004/auth';
 
-  constructor(private userDataService: UserDataService) { }
-  login(user) {
-    this.isAuth = true;
-    this.onLoginCb();
-    return this.userDataService.setUserData(JSON.stringify(user));
-
+  constructor(private userDataService: UserDataService, private http: HttpClient) { }
+  
+  login(credentials: LoginRequest) {
+    // this.isAuth = true;
+    // this.onLoginCb();
+    // console.log("user:", credentials) //{login: "rerer", password: "ere"}
+    // return this.userDataService.setUserData(JSON.stringify(credentials));
+    //TokenRequest
+    return this.http.post<Observable<TokenRequest>>(`${this.authUrl}/login`, credentials)
+      .pipe(
+        tap((item: any) => {
+          //console.log("item:", item) //{token: "58ebfdf7f1f558c5c86e17f6"}
+          this.isAuth = true;
+          this.onLoginCb();
+          return this.userDataService.setUserData(JSON.stringify(item));
+        })
+      );
   }
+
+  // "login": "flastname",
+  // "password": "flastname"
 
   logout() {
     localStorage.removeItem('token');
@@ -26,11 +46,20 @@ export class AuthService {
   return this.isAuth;
   }
 
-  getUserInfo(user) {
-    return user.login;
+  getUserInfo(token) {
+    //return user.login;
+    return this.http.post<User>(`${this.authUrl}/userinfo`, token).pipe(
+      tap((item) => {
+        //console.log("USER", item)
+        return item;
+      })
+    )
   }
 
   subscribeOnLogin(onLoginCb) {
     this.onLoginCb = onLoginCb;
   }
+
 }
+
+

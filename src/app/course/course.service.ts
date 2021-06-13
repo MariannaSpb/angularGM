@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Course } from '../models/data-model';
 import { CourseInstance } from './course';
 
 @Injectable({
@@ -9,6 +11,8 @@ import { CourseInstance } from './course';
 export class CourseService {
 
   course: CourseInstance;
+  private url = 'http://localhost:3004/courses';
+  private errorUrl = 'http://localhost:3004/error'
   private courses: CourseInstance [] = [
     {
         id: 1,
@@ -37,32 +41,50 @@ export class CourseService {
 
 ];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private http: HttpClient) { }
 
-  //  openConfirmationModal() {
-  //   this.dialog.open(ConfirmationModalComponent)
-  // }
-
-
-  getAllCourses() {
-   return this.courses;
+  getAllCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.url).pipe(tap((courses: Course[]) => {
+      return courses;
+    }));
   }
 
   createCourse() {
     this.course = new CourseInstance(this.courses.length + 1, '', new Date(), 0, '', false);
   }
 
-  getCourseById(id: number) {
-    return this.courses.find(course => course.id === id);
+  addCourse(item: Course) {
+    return this.http.post<Course>(this.url, item);
+  }
+
+  getCourseById(id: number): Observable<Course> {
+    return this.http.get<Course>(`${this.url}/${id}`);
   }
 
   updateCourse(item: CourseInstance) {
 
   }
 
+ 
   removeCourse(id: number) {
-    const item = this.courses.find(item => item.id == id)
-    this.courses.splice(this.courses.indexOf(item), 1);
-    return this.courses;
+    return this.http.delete<Course>(`${this.url}/${id}`);
+  }
+
+  searchCourse(query: string) {
+    return this.http.get<Course[]>(this.url, {
+      params: {
+        textFragment: query,
+      }
+    });
+  }
+
+
+  getSomeCourses(start, count) {
+    return this.http.get(this.url, {
+      params: {
+        start,
+        count,
+      }
+    });
   }
 }
