@@ -13,26 +13,10 @@ export class LoginPageComponent implements OnInit {
 
   constructor( private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-    this.authService.isAuthenticated();
+  ngOnInit(): void {   
+    
   }
 
-  // onSubmitButtonClick() {
-  //   if(this.login.length > 0 && this.password.length > 0) {
-  //     this.authService.login({
-  //       login: this.login,
-  //       password: this.password,
-  //     });
-  //       console.log('Logged in successfully', this.login);
-  //     const redirect = this.authService.redirectUrl
-  //           ? this.authService.redirectUrl
-  //           : '/courses';
-  //         this.router.navigate([redirect]);
-  //   }
-  //   else {
-  //     console.log("Please, fill the form")
-  //   }
-  // }
   onSubmitButtonClick() {
     this.authService.login({
       login: this.login,

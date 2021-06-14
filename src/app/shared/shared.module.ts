@@ -3,6 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HeaderComponent } from './header/header.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FooterComponent } from './footer/footer.component';
@@ -14,6 +15,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     OrderByPipe,
     FilterPipe,
     PageNotFoundComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -36,9 +39,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatInputModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
 
   ],
-  exports: [ HeaderComponent, BreadcrumbsComponent, PageNotFoundComponent, FooterComponent, SearchComponent, BorderDirective, DurationPipe, OrderByPipe, FilterPipe, MatDialogModule],
+  exports: [ HeaderComponent, BreadcrumbsComponent, PageNotFoundComponent, FooterComponent, SearchComponent, LoaderComponent, BorderDirective, DurationPipe, OrderByPipe, FilterPipe, MatDialogModule],
   providers: [DatePipe]
 })
 export class SharedModule { }

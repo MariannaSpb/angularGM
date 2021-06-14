@@ -11,12 +11,13 @@ import { CourseInstance } from '../course';
 
 export class CourseItemComponent  {
   @Input() public course: Course;
-  @Output() public deleteCourse: EventEmitter<number> = new EventEmitter<number>();
+  @Output() public deleteCourse = new EventEmitter<number>();
   @Output() public editCourse = new EventEmitter();
   
   
 
   public onDeleteHandler(id: number): void {
+    confirm("Вы подтверждаете удаление?");
     this.deleteCourse.emit(this.course.id);
   }
 

@@ -17,7 +17,6 @@ export class CourseDateInputComponent implements OnInit {
 
   onDateChange($event: string) {
     this.dateChange.emit(this.dateValue);
-    console.log("DATE", this.dateValue)
   }
 
 } 

@@ -20,11 +20,7 @@ export class AuthService {
   constructor(private userDataService: UserDataService, private http: HttpClient) { }
   
   login(credentials: LoginRequest) {
-    // this.isAuth = true;
-    // this.onLoginCb();
-    // console.log("user:", credentials) //{login: "rerer", password: "ere"}
-    // return this.userDataService.setUserData(JSON.stringify(credentials));
-    //TokenRequest
+
     return this.http.post<Observable<TokenRequest>>(`${this.authUrl}/login`, credentials)
       .pipe(
         tap((item: any) => {
@@ -41,16 +37,15 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    this.isAuth = false;
   }
   isAuthenticated() {
   return this.isAuth;
   }
 
   getUserInfo(token) {
-    //return user.login;
     return this.http.post<User>(`${this.authUrl}/userinfo`, token).pipe(
       tap((item) => {
-        //console.log("USER", item)
         return item;
       })
     )
