@@ -20,11 +20,9 @@ export class AddCourseContainerComponent implements OnInit {
   constructor(public coursesService: CourseService, private router: Router,  private route: ActivatedRoute) { 
     this.route.params.pipe(
       tap(data => {
-        console.log("DATA", data)
         return data;
       })
     ).subscribe(data => {
-      console.log("Subsc data", data);
       if (data.id) {
         this.mode = 'Edit';
         this.title = 'Edit course';

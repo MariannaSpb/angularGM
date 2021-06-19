@@ -1,6 +1,25 @@
+
+@import  "../../../sass/variables";
+
 .course__list {
   margin: 0 auto;
   list-style: none;
   padding-top: 20px;
+
+
+  &__button {
+    background-color: $medium-blue;
+    display: block;
+    margin-left: auto;
+  }
+  &__button--load {
+    background-color: $white;
+    width: 100%;
+    text-decoration: underline;
+    color:$light-blue;
+  }
+  &__button--add {
+    margin-bottom: 17px;
+  }
 
 }

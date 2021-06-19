@@ -1,7 +1,7 @@
 <div class="search">
-  <form  class="search__form" (ngSubmit)="onSubmit()">
+  <form #searchbar class="search__form">
     <div class="search__form-group">
-      <label for="search" class="search__label"></label>
+      <label for="searchbar" class="search__label"></label>
       <input matInput
       type="text"
       class="search__input"
@@ -10,13 +10,8 @@
       [(ngModel)]="inputValue"
       name="search"
       >
-      <button mat-raised-button
-      type="submit"
-      color="primary"
-      class="search__form-button"
-      >
-      Search
-      </button>
     </div>
   </form>
 </div>
+<!-- (ngSubmit)="onSubmit()"  --> 
+<!-- (keyup.enter)="onSubmit()" -->

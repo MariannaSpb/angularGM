@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/data-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserDataService } from 'src/app/services/user-data.service';
 import { UserInstance } from 'src/app/user';
@@ -10,7 +11,7 @@ import { UserInstance } from 'src/app/user';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input() isAuthenticated: boolean;
+  // @Input() isAuthenticated: boolean;
   user;
   isSignOutBtnVisible = false;
 
@@ -20,21 +21,29 @@ export class HeaderComponent implements OnInit {
     const userData = this.userDataService.getUserData();
 
     this.authService.subscribeOnLogin(() => {
-      this.isSignOutBtnVisible = true; 
+      this.isSignOutBtnVisible = true;
     })
+    // this.authService.isAuthenticatedSubscriber.subscribe(data => {
+    //   console.log('authh', data) //true
+    //   this.authService.getUserInfo(userData).subscribe(person => {
+    //     this.user = person;
+    //   })
+    //   // console.log('user', this.user) //true
+    // })
 
     if (userData) {
-      this.user = userData;
-      // console.log("User", this.user)
-      return this.user
+      this.authService.getUserInfo(userData).subscribe(person => {
+        this.user = person;
+      })
     }
   }
 
 
 
 logout() {
- this.authService.logout();
- this.router.navigateByUrl('login-page');
+  this.router.navigateByUrl('login-page');
+  this.authService.logout();
+
 }
 
 }

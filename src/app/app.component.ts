@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { LoaderService } from './services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,19 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   title = 'video-portal';
   isAuthenticated;
-  constructor(private authService: AuthService){} //private cdRef: ChangeDetectorRef
+  isLoading = false;
+  constructor(private cdRef: ChangeDetectorRef, private authService: AuthService, private loaderService: LoaderService){} //private cdRef: ChangeDetectorRef
 
   ngOnInit() {
-    this.authService.isAuthenticated();
+    //this.isAuthenticated = this.authService.isAuthenticated();
+
   }
+
+
+  ngAfterViewChecked() {
+    this.loaderService.isLoadingSubscriber.subscribe((item: boolean) => {
+      this.isLoading = item;
+    });
+  }
+
 }

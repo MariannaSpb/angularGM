@@ -17,16 +17,13 @@ export class BreadcrumbsComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe((data) => {
       const id = +data.get('id');
-      // this.getCurrentCourse(id);
     });
   }
 
   getCurrentCourse(id: number): void {
-    console.log("BR", id)
     this.coursesService.getCourseById(id).subscribe(course => {
       this.currentCourse = course
     })
-    console.log("currentCourse", this.currentCourse)
   }
 
 }

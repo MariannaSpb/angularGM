@@ -13,6 +13,7 @@ import { LoginPageModule } from './login-page/login-page.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CourseModule } from './course/course.module';
 import { TokenInterceptor } from './interseptors/token.interceptor';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
   declarations: [AppComponent],
