@@ -23,23 +23,6 @@ export class MainPageComponent implements OnInit {
   ngOnInit() {
    
   }
-
- 
-  // onLoadCourse(): void {
-  //   this.loaderService.addLoader();
-  //   this.courseService.getSomeCourses(0, 5).pipe( 
-  //     map(value => {
-  //       const arr = Object.values(value);
-  //       console.log('ARR', arr);
-  //       console.log('courseList', this.courseList);
-  //       // arr.forEach((el) => {
-  //       //   this.courseList.push(el);
-  //       // })
-  //       // this.loaderService.hideLoader();
-  //     })
-  //   ).subscribe()
-  // }
-
   
   openAddCourse() {
     this.router.navigateByUrl('/courses/new');

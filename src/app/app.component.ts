@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   constructor(private cdRef: ChangeDetectorRef, private authService: AuthService, private loaderService: LoaderService){} //private cdRef: ChangeDetectorRef
 
   ngOnInit() {
-    this.isAuthenticated = this.authService.isAuthenticated();
+    //this.isAuthenticated = this.authService.isAuthenticated();
 
   }
 
@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
   ngAfterViewChecked() {
     this.loaderService.isLoadingSubscriber.subscribe((item: boolean) => {
       this.isLoading = item;
-      this.cdRef.detectChanges();
     });
   }
 

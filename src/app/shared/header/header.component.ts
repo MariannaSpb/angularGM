@@ -10,8 +10,8 @@ import { UserInstance } from 'src/app/user';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnChanges {
-  @Input() isAuthenticated: boolean;
+export class HeaderComponent implements OnInit {
+  // @Input() isAuthenticated: boolean;
   user;
   isSignOutBtnVisible = false;
 
@@ -22,8 +22,14 @@ export class HeaderComponent implements OnInit, OnChanges {
 
     this.authService.subscribeOnLogin(() => {
       this.isSignOutBtnVisible = true;
-      this.isAuthenticated = true;
     })
+    // this.authService.isAuthenticatedSubscriber.subscribe(data => {
+    //   console.log('authh', data) //true
+    //   this.authService.getUserInfo(userData).subscribe(person => {
+    //     this.user = person;
+    //   })
+    //   // console.log('user', this.user) //true
+    // })
 
     if (userData) {
       this.authService.getUserInfo(userData).subscribe(person => {
@@ -38,11 +44,6 @@ logout() {
   this.router.navigateByUrl('login-page');
   this.authService.logout();
 
-}
-
-
-ngOnChanges(changes: SimpleChanges) {
-  this.isAuthenticated = changes.isAuthenticated.currentValue;
 }
 
 }

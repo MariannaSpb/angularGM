@@ -7,7 +7,7 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 })
 export class LoaderService {
 
-  isLoading = new BehaviorSubject(true);
+  private isLoading = new BehaviorSubject(true);
   isLoadingSubscriber = this.isLoading.asObservable(); 
 
   constructor() { }
