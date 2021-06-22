@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Course } from '../models/data-model';
+import { Course } from '../models/data-model'; 
+import { State } from '../state';
+import { getCoursesSuccess } from '../state/courses/courses.actions';
 import { CourseInstance } from './course';
 
 @Injectable({
@@ -41,15 +44,20 @@ export class CourseService {
 
 ];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,  private store: Store<State>) { }
 
   getAllCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.url).pipe(tap((courses: Course[]) => {
+      // 4. запрос вернул массив курсов
+      // 5 . сработал экшен success и его обработал редьюсер,
+      // который вернул новый стейт и записал курсы в allCourses: courses,
+      this.store.dispatch(getCoursesSuccess({courses}));
+      // console.log('courses', courses);
       return courses;
     }));
   }
 
-  createCourse() {
+  createCourse(): void { // return
     this.course = new CourseInstance(this.courses.length + 1, '', new Date(), 0, '', false);
   }
 
@@ -65,7 +73,6 @@ export class CourseService {
 
   }
 
- 
   removeCourse(id: number) {
     return this.http.delete<Course>(`${this.url}/${id}`);
   }

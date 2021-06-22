@@ -19,7 +19,7 @@ export interface Course {
     isTopRated: boolean;
   }
 
- export class CourseModel implements Course {
+export class CourseModel implements Course {
      constructor(
         public id: number,
         public name: string,
@@ -32,7 +32,7 @@ export interface Course {
  }
 
 
-  export interface FullName {
+export interface FullName {
     first: string;
     last: string;
 }
@@ -44,8 +44,9 @@ export interface TokenRequest {
 
 export interface User {
     id: number;
-    token: string;
+    fakeToken: string;
     name: FullName;
     login: string;
     password: string;
 }
+

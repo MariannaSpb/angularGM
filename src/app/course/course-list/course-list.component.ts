@@ -1,14 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable } from 'rxjs';
-import {
-  debounceTime, distinctUntilChanged, map, switchMap, tap
-} from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Course } from 'src/app/models/data-model';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
+import { State } from 'src/app/state';
+import { getAllCourses, getCourses, loadMoreCourses, removeCourse } from 'src/app/state/courses/courses.actions';
+import { selectCourses } from 'src/app/state/courses/courses.selector';
 import { CourseInstance } from '../course';
 import { CourseService } from '../course.service';
-import { LoaderService } from 'src/app/services/loader.service';
+
 
 @Component({
   selector: 'app-course-list',
@@ -22,51 +24,85 @@ export class CourseListComponent implements OnInit {
 
   public message: string;
   public listBySearch: Course[];
-  
+
   courseList: Course[];
 
-  public filterSubject= new Subject<string>();
+  public filterSubject = new Subject<string>();
   public query: string;
 
-  
   constructor(
     private courseService: CourseService,
     private router: Router,
+    private store: Store<State>,
     ) {
       this.filterSubject.pipe(switchMap(data => this.courseService.searchCourse(data)
       .pipe(
-        debounceTime(5000),
-        tap(data => {
+        tap((data: Course[]) => {
           this.courseList = data;
         })
       )
-      )).subscribe()
-    }
+      )).subscribe();
+    } 
 
 
-  ngOnInit() {
-    this.courseService.getAllCourses().subscribe((data) => {
-      this.courseList = data;
-      return this.courseList;
-    });
+  ngOnInit() { 
+    this.loadCourses();
+       // this.courseService.getAllCourses().subscribe((data) => {
+      // this.courseList = data;
+     // return this.courseList;
+    // });
   }
 
-  public onDeleteCourse(id: number): void {
-    const item = this.courseList.find(item => item.id == id);
-    this.courseList.splice(this.courseList.indexOf(item), 1);
-    this.courseService.removeCourse(item.id).subscribe(item => {
+  loadCourses() {
+    this.store.dispatch(getAllCourses());
+    // 1.как только приложение загрузилось- сработал экшен Загрузи все курсы
+    // 2. экшен должен вызвать сервис, это реализовано в эффекте
+    // 3. вызван метод сервиса внутри эффекта
+    // 4 эффект вернул экшен, который обработает редьюсер и вернет новый стейт
+
+    this.store.dispatch(getCourses()); // загружаю по дефолту 5 курсов
+    // 4. список курсов после обновления
+    // 6. Дальше достали из стора через селектор список курсов
+    this.store.pipe(
+      select(selectCourses)).subscribe(courses => {
+        console.log('COURSES', courses.allCourses);
+        this.courseList = [...courses.courses]
+      });
+  }
+
+  // public onDeleteCourse(id: number): void {
+  //   //previos
+  //   // const item = this.courseList.find(item => item.id == id);
+  //   // this.courseList.splice(this.courseList.indexOf(item), 1);
+  //   // this.courseService.removeCourse(item.id).subscribe(item => {
+  //   //   return item;
+  //   // }, (err) => {
+  //   //     console.log('ERROR:', err)
+  //   // });
+
+  //   // убрать курс на клиенте  и вернуть оставшийся список:
+  //   const item = this.courseList.find(item => item.id == id);
+  //   this.courseList.splice(this.courseList.indexOf(item), 1);
+
+  //   // в эффекте сделать запрос на бек
+  //   this.store.dispatch(removeCourse());
+  // }
+
+
+  onDeleteCourse(id) {
+    this.courseService.removeCourse(id).subscribe(item => {
+      this.store.dispatch(removeCourse());
       return item;
-    }, (err) => {
-        console.log('ERROR:', err)
     });
   }
 
 
 
-  public onEditCourse(item: CourseInstance): void { //Course!
+
+  public onEditCourse(item: CourseInstance): void { // Course
     this.router.navigateByUrl(`courses/${item.id}`, {
       queryParams: {...item},
-    })
+    });
   }
 
   public trackByFn(index: number): number {
@@ -79,13 +115,16 @@ export class CourseListComponent implements OnInit {
 
 
   onLoadCourse() {
-    this.courseService.getSomeCourses(0, 5).pipe( 
-      map(value => {
-        const arr = Object.values(value);
-        arr.forEach((el) => {
-          this.courseList.push(el);
-        })
-      })
-      ).subscribe();
-    }
+    // this.courseService.getSomeCourses(0, 5).pipe( 
+    //   map(value => {
+    //     const arr = Object.values(value);
+    //     arr.forEach((el) => {
+    //       this.courseList.push(el);
+    //     })
+    //   })
+    //   ).subscribe();
+    // }
+
+    this.store.dispatch(loadMoreCourses());
+  }
 }

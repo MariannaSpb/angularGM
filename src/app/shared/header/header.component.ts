@@ -1,8 +1,11 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { User } from 'src/app/models/data-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserDataService } from 'src/app/services/user-data.service';
+import { State } from 'src/app/state';
+import { getCurrentUser } from 'src/app/state/user/user.actions';
 import { UserInstance } from 'src/app/user';
 
 @Component({
@@ -15,25 +18,24 @@ export class HeaderComponent implements OnInit {
   user;
   isSignOutBtnVisible = false;
 
- constructor(private authService: AuthService, private router: Router, private userDataService: UserDataService){}
+ constructor(private store: Store<State>,
+             private authService: AuthService,
+             private router: Router, private userDataService: UserDataService){}
 
   ngOnInit() {
     const userData = this.userDataService.getUserData();
 
     this.authService.subscribeOnLogin(() => {
-      this.isSignOutBtnVisible = true;
+      this.isSignOutBtnVisible = true; 
     })
     // this.authService.isAuthenticatedSubscriber.subscribe(data => {
     //   console.log('authh', data) //true
-    //   this.authService.getUserInfo(userData).subscribe(person => {
-    //     this.user = person;
-    //   })
-    //   // console.log('user', this.user) //true
     // })
 
     if (userData) {
       this.authService.getUserInfo(userData).subscribe(person => {
         this.user = person;
+        this.store.dispatch(getCurrentUser({user: person}));
       })
     }
   }

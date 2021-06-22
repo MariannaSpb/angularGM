@@ -6,7 +6,7 @@ import { Injectable } from "@angular/core";
   })
   export class UserDataService {
     private readonly varName = 'token';
-  
+
     getUserData() {
       return JSON.parse(localStorage.getItem(this.varName));
     }
