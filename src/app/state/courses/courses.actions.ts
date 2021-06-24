@@ -3,7 +3,7 @@ import { Course } from 'src/app/models/data-model';
 
 export const getCoursesSuccess = createAction(
     'Get Courses Success',
-    props<{courses: Course[]}>(), 
+    props<{courses: Course[]}>(),
 );
 
 export const getSomeCourses = createAction(
@@ -20,7 +20,14 @@ export const getAllCourses = createAction(
 );
 
 export const removeCourse = createAction(
-    'Remove Courses',
+  'Remove Courses',
+    props<{courseId: number}>(),
+);
+
+
+export const removeCourseSuccess = createAction(
+  'Remove Courses Success',
+  props<{ courseId: number }>(),
 );
 
 

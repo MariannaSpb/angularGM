@@ -7,7 +7,7 @@ import { Course } from 'src/app/models/data-model';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
 import { State } from 'src/app/state';
 import { getAllCourses, getCourses, loadMoreCourses, removeCourse } from 'src/app/state/courses/courses.actions';
-import { selectCourses } from 'src/app/state/courses/courses.selector';
+import { selectAllCourses, selectCourses } from 'src/app/state/courses/courses.selector';
 import { CourseInstance } from '../course';
 import { CourseService } from '../course.service';
 
@@ -42,59 +42,31 @@ export class CourseListComponent implements OnInit {
         })
       )
       )).subscribe();
-    } 
+    }
 
 
-  ngOnInit() { 
-    this.loadCourses();
-       // this.courseService.getAllCourses().subscribe((data) => {
-      // this.courseList = data;
-     // return this.courseList;
-    // });
-  }
-
-  loadCourses() {
+  ngOnInit() {
     this.store.dispatch(getAllCourses());
-    // 1.как только приложение загрузилось- сработал экшен Загрузи все курсы
-    // 2. экшен должен вызвать сервис, это реализовано в эффекте
-    // 3. вызван метод сервиса внутри эффекта
-    // 4 эффект вернул экшен, который обработает редьюсер и вернет новый стейт
 
-    this.store.dispatch(getCourses()); // загружаю по дефолту 5 курсов
-    // 4. список курсов после обновления
-    // 6. Дальше достали из стора через селектор список курсов
     this.store.pipe(
-      select(selectCourses)).subscribe(courses => {
-        console.log('COURSES', courses.allCourses);
-        this.courseList = [...courses.courses]
+      select(selectAllCourses))
+      .subscribe(allCourses => {
+        this.courseList = allCourses
       });
   }
 
-  // public onDeleteCourse(id: number): void {
-  //   //previos
-  //   // const item = this.courseList.find(item => item.id == id);
-  //   // this.courseList.splice(this.courseList.indexOf(item), 1);
-  //   // this.courseService.removeCourse(item.id).subscribe(item => {
-  //   //   return item;
-  //   // }, (err) => {
-  //   //     console.log('ERROR:', err)
-  //   // });
 
-  //   // убрать курс на клиенте  и вернуть оставшийся список:
-  //   const item = this.courseList.find(item => item.id == id);
-  //   this.courseList.splice(this.courseList.indexOf(item), 1);
-
-  //   // в эффекте сделать запрос на бек
-  //   this.store.dispatch(removeCourse());
-  // }
-
-
-  onDeleteCourse(id) {
-    this.courseService.removeCourse(id).subscribe(item => {
-      this.store.dispatch(removeCourse());
-      return item;
-    });
+  public onDeleteCourse(id: number): void {
+    this.store.dispatch(removeCourse({courseId: id}));
   }
+
+
+  // onDeleteCourse(id) {
+  //   this.courseService.removeCourse(id).subscribe(item => {
+  //     this.store.dispatch(removeCourse());
+  //     return item;
+  //   });
+  // }
 
 
 
@@ -115,7 +87,7 @@ export class CourseListComponent implements OnInit {
 
 
   onLoadCourse() {
-    // this.courseService.getSomeCourses(0, 5).pipe( 
+    // this.courseService.getSomeCourses(0, 5).pipe(
     //   map(value => {
     //     const arr = Object.values(value);
     //     arr.forEach((el) => {

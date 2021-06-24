@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { currentCourse, editCourse, getCoursesSuccess, getSomeCourses, removeCourse } from './courses.actions';
+import { currentCourse, editCourse, getCoursesSuccess, getSomeCourses, removeCourse, removeCourseSuccess } from './courses.actions';
 
 export const initialState = {
   courses: [],
@@ -10,7 +10,7 @@ export const initialState = {
 
 const reducer = createReducer(
   initialState,
-  on(getCoursesSuccess, (state, { courses }) => { 
+  on(getCoursesSuccess, (state, { courses }) => {
     return {
       ...state,
       allCourses: courses,
@@ -41,7 +41,15 @@ const reducer = createReducer(
       currentCourse,
     };
   }),
+  on(removeCourseSuccess, (state, { courseId }) => {
+    let updatedCourse = state.allCourses.filter(x => x.id !== courseId);
 
+
+    return {
+      ...state,
+      allCourses: updatedCourse,
+    };
+  }),
 );
 
 export function coursesReducer(state: any, action: Action): any {
