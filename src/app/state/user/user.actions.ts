@@ -4,7 +4,7 @@ import { LoginRequest, User } from 'src/app/models/data-model';
 
 export const getCurrentUser = createAction(
     'Get User',
-    props<{ user: User }>(), // take it in header
+    props<{ user: User }>(),
 );
  
 export const userLogin = createAction(
@@ -19,16 +19,9 @@ export const setToken = createAction(
 
 export const setUser = createAction(
     'Set User',
-    props<{token: string}>(),
+   props<{token: string}>(),
 );
 
 export const userLogout = createAction(
     'User Logout',
 );
-
-
-
-// export const setToken = createAction( // login method 
-//     'Set Token',
-//     props<{ token: string }>(),
-// );

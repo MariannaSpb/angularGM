@@ -3,9 +3,9 @@ import { State } from '..';
 
 export const selectFeature = (state: State) => state;
 
-export const selectUser = createSelector(
+export const selectUser = createSelector( 
   selectFeature,
-  (state: State) => state.user
+  (state: State) => state.user.user
 );
 
 export const selectToken = createSelector(

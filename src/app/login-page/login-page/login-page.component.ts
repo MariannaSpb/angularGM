@@ -18,12 +18,7 @@ export class LoginPageComponent implements OnInit {
 
   constructor(private store: Store<State>, private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {   
-    // this.store.pipe(select(selectUser)).subscribe(item => {
-    //   console.log('ngOnInit', item);
-    //   this.userToken = item;
-    // });
-    // console.log('userToken', this.userToken);
+  ngOnInit(): void {
   }
 
   onSubmitButtonClick() {
@@ -36,15 +31,11 @@ export class LoginPageComponent implements OnInit {
       password: this.password,
     }).subscribe(
       (data) => {
-        // console.log('onSubmitButtonClick', data); // { token: "58ebfdf7f1f558c5c86e17f6" }
         this.router.navigateByUrl('/courses');
         console.log('Logged in successfully');
-        this.store.dispatch(setToken(data));
-
-        // new
-        // this.store.dispatch(userLogin({credentials})) // сетим токен
+        this.store.dispatch(userLogin({credentials})); // сетим токен
        // set user 
-      // this.store.dispatch(setUser(data)) //user?
+        this.store.dispatch(setUser(data));
       },
       (error) => console.error('ERROR', error.error));
 

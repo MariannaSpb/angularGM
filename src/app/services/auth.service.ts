@@ -30,7 +30,6 @@ export class AuthService {
           this.isAuth = true;
           this.isAuthenticated.next(true)
           this.onLoginCb();
-          //this.store.dispatch(getToken({token: item}));
           return this.userDataService.setUserData(JSON.stringify(item));
         })
       );

@@ -26,9 +26,9 @@ getUser = createEffect(() =>
 this.actions$.pipe(
   ofType(setUser),
   switchMap((action) => (
-   this.authService.getUserInfo(action.token).pipe(
+   this.authService.getUserInfo(action).pipe(
      map(data => { // user {}
-       console.log('GETUSER', data);//
+       // console.log('GETUSER', data); // user {}
        return getCurrentUser({user: data}); // DATA?
      })
    )
