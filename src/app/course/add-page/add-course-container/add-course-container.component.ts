@@ -29,9 +29,9 @@ export class AddCourseContainerComponent implements OnInit {
         return;
       }
       this.mode = 'Add';
-      this.title = "Add new course"
-    })
-  } 
+      this.title = 'Add new course'
+    });
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -52,7 +52,7 @@ export class AddCourseContainerComponent implements OnInit {
 
   createNewCourse() {
     this.newIndex = Math.floor(Math.random() * 5);
-    this.course = new CourseModel(this.newIndex, "", false, new Date(), 0, '', []);
+    this.course = new CourseModel(this.newIndex, '', false, new Date(), 0, '', []);
     this.form.controls.title.setValue(this.course.name);
     this.form.controls.description.setValue(this.course.description);
   }

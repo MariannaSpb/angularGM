@@ -17,9 +17,11 @@ const reducer = createReducer(
     };
   }),
   on(getSomeCourses, (state, { courses }) => {
+    let updatedCourse = state.allCourses.concat(courses);
     return {
       ...state,
-      courses,
+      // courses,
+      allCourses: updatedCourse,
     };
   }),
   on(editCourse, (state, { currentId }) => {
@@ -29,12 +31,6 @@ const reducer = createReducer(
     };
   }),
 
-  // on(removeCourse, (state, { currentId }) => {
-  //   return {
-  //     ...state,
-  //     currentId,
-  //   };
-  // }),
   on(currentCourse, (state, { currentCourse }) => {
     return {
       ...state,
@@ -43,8 +39,6 @@ const reducer = createReducer(
   }),
   on(removeCourseSuccess, (state, { courseId }) => {
     let updatedCourse = state.allCourses.filter(x => x.id !== courseId);
-
-
     return {
       ...state,
       allCourses: updatedCourse,

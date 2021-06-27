@@ -1,21 +1,34 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from 'src/app/models/data-model';
+import { LoginRequest, User } from 'src/app/models/data-model';
 
 
 export const getCurrentUser = createAction(
-    'Get User Success',
+    'Get User',
     props<{ user: User }>(), // take it in header
 );
+ 
+export const userLogin = createAction(
+    'User Login',
+    props<{credentials: LoginRequest}>(),
+);
 
-export const userLogout = createAction( // logout method
+export const setToken = createAction(
+    'Set Token',
+    props<{token: string}>(),
+);
+
+export const setUser = createAction(
+    'Set User',
+    props<{token: string}>(),
+);
+
+export const userLogout = createAction(
     'User Logout',
 );
- 
-// export const userLogin = createAction(
-//     'User Login',
-// );
 
-export const getToken = createAction( // login method
-    'Get Token',
-    props<{ token: string }>(),
-);
+
+
+// export const setToken = createAction( // login method 
+//     'Set Token',
+//     props<{ token: string }>(),
+// );

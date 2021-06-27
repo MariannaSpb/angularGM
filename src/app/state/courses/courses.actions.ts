@@ -31,7 +31,7 @@ export const removeCourseSuccess = createAction(
 );
 
 
-export const loadMoreCourses = createAction(
+export const loadMoreCoursesSuccess = createAction(
     'More Courses',
 );
 

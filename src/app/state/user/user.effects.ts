@@ -1,30 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { exhaustMap, map, withLatestFrom, tap } from 'rxjs/operators';
+import { exhaustMap, map, withLatestFrom, tap, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { State } from '..';
-
-import { getToken, getCurrentUser } from './user.actions';
 import { AuthService } from 'src/app/services/auth.service';
+import { getCurrentUser, setToken, setUser, userLogin } from './user.actions';
 
 @Injectable()
 export class UserEffect {
-  getUser = createEffect(() =>
+  login = createEffect(() =>
     this.actions$.pipe(
-      ofType(getToken),
-      withLatestFrom(this.store, (action, state) => ({ action, state })),
-      exhaustMap((data: any) => {
-        console.log('DATA USER', data)
-        console.log(data.action.token);
-        return this.authService.getUserInfo(data.action.token.token).pipe(
-          tap((user: any) => {
-            return getCurrentUser({ user });
-          })
-        );
-      })
-    )
-  );
+      ofType(userLogin),
+      switchMap((action) => (
+       this.authService.login(action.credentials).pipe(
+         map(data => {
+           //console.log('GETUSER', data);//{token: "58ebfdf7f1f558c5c86e17f6"}
+           return setToken({token: data.token });
+         })
+       )
+    ))
+  )
+);
 
+getUser = createEffect(() =>
+this.actions$.pipe(
+  ofType(setUser),
+  switchMap((action) => (
+   this.authService.getUserInfo(action.token).pipe(
+     map(data => { // user {}
+       console.log('GETUSER', data);//
+       return getCurrentUser({user: data}); // DATA?
+     })
+   )
+))
+)
+);
 
   constructor(
     private actions$: Actions,

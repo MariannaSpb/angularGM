@@ -7,3 +7,8 @@ export const selectUser = createSelector(
   selectFeature,
   (state: State) => state.user
 );
+
+export const selectToken = createSelector(
+  selectFeature,
+  (state: State) => state.user.token
+);

@@ -1,12 +1,12 @@
-import { Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Course } from 'src/app/models/data-model';
 import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
 import { State } from 'src/app/state';
-import { getAllCourses, getCourses, loadMoreCourses, removeCourse } from 'src/app/state/courses/courses.actions';
+import { getAllCourses, getCourses, loadMoreCoursesSuccess, removeCourse } from 'src/app/state/courses/courses.actions';
 import { selectAllCourses, selectCourses } from 'src/app/state/courses/courses.selector';
 import { CourseInstance } from '../course';
 import { CourseService } from '../course.service';
@@ -18,7 +18,7 @@ import { CourseService } from '../course.service';
   styleUrls: ['./course-list.component.scss'],
   providers: [FilterPipe],
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent implements OnInit, OnDestroy {
   @Output()
   deleteCourseItem: EventEmitter<number> = new EventEmitter<number>();
 
@@ -26,7 +26,7 @@ export class CourseListComponent implements OnInit {
   public listBySearch: Course[];
 
   courseList: Course[];
-
+  unsubscribe: Subscription;
   public filterSubject = new Subject<string>();
   public query: string;
 
@@ -48,10 +48,11 @@ export class CourseListComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(getAllCourses());
 
-    this.store.pipe(
+    this.unsubscribe = this.store.pipe(
       select(selectAllCourses))
       .subscribe(allCourses => {
-        this.courseList = allCourses
+        this.courseList = allCourses;
+        // console.log('LIST', this.courseList);
       });
   }
 
@@ -59,17 +60,6 @@ export class CourseListComponent implements OnInit {
   public onDeleteCourse(id: number): void {
     this.store.dispatch(removeCourse({courseId: id}));
   }
-
-
-  // onDeleteCourse(id) {
-  //   this.courseService.removeCourse(id).subscribe(item => {
-  //     this.store.dispatch(removeCourse());
-  //     return item;
-  //   });
-  // }
-
-
-
 
   public onEditCourse(item: CourseInstance): void { // Course
     this.router.navigateByUrl(`courses/${item.id}`, {
@@ -87,16 +77,11 @@ export class CourseListComponent implements OnInit {
 
 
   onLoadCourse() {
-    // this.courseService.getSomeCourses(0, 5).pipe(
-    //   map(value => {
-    //     const arr = Object.values(value);
-    //     arr.forEach((el) => {
-    //       this.courseList.push(el);
-    //     })
-    //   })
-    //   ).subscribe();
-    // }
+    this.store.dispatch(loadMoreCoursesSuccess());
+  }
 
-    this.store.dispatch(loadMoreCourses());
+
+  ngOnDestroy() {
+    this.unsubscribe.unsubscribe();
   }
 }
