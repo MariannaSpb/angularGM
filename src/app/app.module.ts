@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +13,14 @@ import { LoginPageModule } from './login-page/login-page.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CourseModule } from './course/course.module';
 import { TokenInterceptor } from './interseptors/token.interceptor';
-import { LoaderComponent } from './shared/loader/loader.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { CourseEffects } from './state/courses/course.effects';
+import { UserEffect } from './state/user/user.effects';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +36,10 @@ import { LoaderComponent } from './shared/loader/loader.component';
     LoginPageModule,
     MatDialogModule,
     ReactiveFormsModule,
-    
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([CourseEffects, UserEffect]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+
   ],
   providers: [
     {

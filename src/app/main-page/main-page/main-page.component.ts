@@ -13,7 +13,6 @@ import { FilterPipe } from 'src/app/shared/pipes/filter.pipe';
   providers: [FilterPipe]
 })
 export class MainPageComponent implements OnInit {
-  @Input() isAuthenticated;
   courseList: Course[];
 
 

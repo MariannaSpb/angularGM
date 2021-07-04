@@ -1,49 +1,63 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/data-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserDataService } from 'src/app/services/user-data.service';
-import { UserInstance } from 'src/app/user';
+import { State } from 'src/app/state';
+import { getCurrentUser, userLogout } from 'src/app/state/user/user.actions';
+import { selectToken, selectUser } from 'src/app/state/user/user.selector';
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  // @Input() isAuthenticated: boolean;
+export class HeaderComponent implements OnInit, OnDestroy {
   user;
   isSignOutBtnVisible = false;
+  tokenValueSubscription: Subscription;
 
- constructor(private authService: AuthService, private router: Router, private userDataService: UserDataService){}
+  token;
+
+ constructor(private store: Store<State>,
+             private authService: AuthService,
+             private router: Router, private userDataService: UserDataService){}
 
   ngOnInit() {
-    const userData = this.userDataService.getUserData();
+    // 1 получить токен из стора
+   const tokenValueSubscription = this.store.pipe(
+      select(selectToken))
+      .subscribe(token => {
+        this.token = token;
+        console.log('TOKEN', this.token);
 
-    this.authService.subscribeOnLogin(() => {
+      });
+
+   const userValueSubscription = this.store.pipe(
+    select(selectUser))
+    .subscribe(user => {
+      this.user = user;
+      console.log('USER HEADER', this.user);
+    });
+
+   this.authService.subscribeOnLogin(() => {
       this.isSignOutBtnVisible = true;
-    })
-    // this.authService.isAuthenticatedSubscriber.subscribe(data => {
-    //   console.log('authh', data) //true
-    //   this.authService.getUserInfo(userData).subscribe(person => {
-    //     this.user = person;
-    //   })
-    //   // console.log('user', this.user) //true
-    // })
+    });
+   tokenValueSubscription.add(userValueSubscription);
+  }
 
-    if (userData) {
-      this.authService.getUserInfo(userData).subscribe(person => {
-        this.user = person;
-      })
-    }
+  logout() {
+    this.router.navigateByUrl('login-page');
+    this.authService.logout();
+    this.store.dispatch(userLogout());
   }
 
 
-
-logout() {
-  this.router.navigateByUrl('login-page');
-  this.authService.logout();
-
-}
+  ngOnDestroy() {
+    this.tokenValueSubscription.unsubscribe();
+  }
 
 }
