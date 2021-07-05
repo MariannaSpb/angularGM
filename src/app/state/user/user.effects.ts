@@ -14,7 +14,6 @@ export class UserEffect {
       switchMap((action) => (
        this.authService.login(action.credentials).pipe(
          map(data => {
-           //console.log('GETUSER', data);//{token: "58ebfdf7f1f558c5c86e17f6"}
            return setToken({token: data.token });
          })
        )
@@ -28,8 +27,7 @@ this.actions$.pipe(
   switchMap((action) => (
    this.authService.getUserInfo(action).pipe(
      map(data => { // user {}
-       // console.log('GETUSER', data); // user {}
-       return getCurrentUser({user: data}); // DATA?
+       return getCurrentUser({user: data});
      })
    )
 ))

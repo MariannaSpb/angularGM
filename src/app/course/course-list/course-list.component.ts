@@ -52,7 +52,6 @@ export class CourseListComponent implements OnInit, OnDestroy {
       select(selectAllCourses))
       .subscribe(allCourses => {
         this.courseList = allCourses;
-        // console.log('LIST', this.courseList);
       });
   }
 

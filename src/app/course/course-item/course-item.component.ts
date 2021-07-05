@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Course } from 'src/app/models/data-model';
 import { CourseInstance } from '../course';
 
@@ -9,12 +9,15 @@ import { CourseInstance } from '../course';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CourseItemComponent  {
+export class CourseItemComponent  implements OnInit {
   @Input() public course: Course;
   @Output() public deleteCourse = new EventEmitter<number>();
   @Output() public editCourse = new EventEmitter();
   
-  
+  ngOnInit() {
+    // console.log('COURSE11', this.course)
+    // console.log('COURSE', this.course.length)
+  }
 
   public onDeleteHandler(id: number): void {
     confirm("Вы подтверждаете удаление?");

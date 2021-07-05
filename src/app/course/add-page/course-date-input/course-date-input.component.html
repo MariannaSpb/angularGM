@@ -2,8 +2,8 @@
   type="date"
   class="date"
   name="date"
-  [value]="date"
   required
-  [(ngModel)]="dateValue"
-  (ngModelChange)="onDateChange($event)"
+  [value]="date"
+  (change)="onDateChange()"
+  (input)="onChange($event.target.value)"
 />

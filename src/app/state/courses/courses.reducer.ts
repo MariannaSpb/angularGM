@@ -37,6 +37,12 @@ const reducer = createReducer(
       currentCourse,
     };
   }),
+  on(editCourse, (state, { currentId }) => {
+    return {
+      ...state,
+      currentId,
+    };
+  }),
   on(removeCourseSuccess, (state, { courseId }) => {
     let updatedCourse = state.allCourses.filter(x => x.id !== courseId);
     return {
