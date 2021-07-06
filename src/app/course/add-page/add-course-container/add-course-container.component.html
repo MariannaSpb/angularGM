@@ -13,11 +13,11 @@
               class="title form-control"
               required
               placeholder="Text input"
-              name="title"
-              formControlName="title"
+              name="name"
+              formControlName="name"
             />
-            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error-notification">
-              <p class="error-text" *ngIf="title.errors?.required">Field should not be empty</p>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-notification">
+              <p class="error-text" *ngIf="name.errors?.required">Field should not be empty</p>
             </div>
 
           </div>

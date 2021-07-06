@@ -25,9 +25,10 @@ export class CourseDateInputComponent implements OnInit, ControlValueAccessor {
   
   }
 
-  onDateChange() {
-   
-  }
+  // onDateChange(val) {
+  //   this.onChange(val)
+  // }
+
 
   registerOnChange(fn) {
     this.onChange = fn;
@@ -38,7 +39,7 @@ export class CourseDateInputComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(value) { 
-
+    this.date = value;
   }
 
 

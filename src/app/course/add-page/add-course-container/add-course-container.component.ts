@@ -49,13 +49,6 @@ export class AddCourseContainerComponent implements OnInit {
     this.createForm();
     if (this.mode === 'Edit') {
     this.getCourseItem();
-    this.form.valueChanges.subscribe(item => {
-      this.course.name = item.title;
-      this.course.description = item.description;
-      this.course.authors = item.authors;
-      this.course.date = new Date(item.date);
-      this.course.length = Number(item.duration);
-      });
     return;
     }
     // если это добавление курса
@@ -69,13 +62,12 @@ export class AddCourseContainerComponent implements OnInit {
       select(selectCourses),
     ).subscribe((courses: CourseState) => {
       if (courses.currentCourse) {
-        const currentCourse = courses.currentCourse;
-        this.course = {...currentCourse};
-        this.form.controls.title.setValue(this.course.name);
-        this.form.controls.description.setValue(this.course.description); //
-        this.form.controls.authors.setValue(this.course.authors);
-        this.form.controls.date.setValue(this.course.name); // this.date
-        this.form.controls.duration.setValue(this.course.length);
+        this.form.controls.name.setValue(courses.currentCourse.name);
+        this.form.controls.description.setValue(courses.currentCourse.description); //
+        this.form.controls.authors.setValue(courses.currentCourse.authors);
+        this.date = new Date(courses.currentCourse.date);
+        this.form.controls.date.setValue(this.date); // this.date
+        this.form.controls.duration.setValue(courses.currentCourse.length);
       }
     });
   }
@@ -84,14 +76,14 @@ export class AddCourseContainerComponent implements OnInit {
 
   createForm(): void {
     this.form = this.formBuilder.group({
-      title: ['', Validators.compose([
+      name: ['', Validators.compose([
         Validators.required,
         Validators.minLength(50),
       ])],
       description: ['', Validators.compose([Validators.required, Validators.maxLength(500)])],
       authors: [[]],
       date: [],
-      duration: [0],
+      duration: [],
     });
   }
 
@@ -99,26 +91,20 @@ export class AddCourseContainerComponent implements OnInit {
     return this.form.get('description');
   }
 
-  get title() {
-    return this.form.get('title');
+  get name() {
+    return this.form.get('name');
   }
 
 
   createNewCourse() {
     this.newIndex = Math.floor(Math.random() * 5);
-    // this.course = new CourseModel(this.newIndex, '', false, new Date(), 0, '', []);
-    // this.form.controls.title.setValue(this.course.name);
-    // this.form.controls.duration.setValue(this.course.length);
-    // this.form.controls.description.setValue(this.course.description);
-    // console.log('NAME', this.form.controls.title.value);
-    console.log('CREATEEE')
+    this.course = new CourseModel(this.newIndex, '', false, new Date(), 0, '', []);
     this.form.valueChanges.subscribe(item => {
-      console.log('CREATEEE ITEM', item);
       this.course = new CourseModel(this.newIndex, '', false, new Date(), 0, '', []);
-      this.course.name = item.title;
+      this.course.name = item.name;
       this.course.description = item.description;
       this.course.authors = item.authors;
-      // this.course.date = new Date(item.date);
+      this.course.date = new Date(item.date);
       this.course.length = item.duration;
       });
   }
@@ -137,15 +123,14 @@ export class AddCourseContainerComponent implements OnInit {
 
   onSave() {
     if (this.mode === 'Edit') {
-      this.coursesService.updateCourse(this.idCourse, this.course).subscribe(item => item);
+      this.coursesService.updateCourse(this.idCourse, this.form.getRawValue()).subscribe(item => {
+        return item;
+      });
     } else if (this.mode === 'Add') {
       this.coursesService.addCourse(this.course).subscribe(item => {
-        console.log('ADD COURSE', item)
-        console.log('ADD COURSE222', this.course)
         return item;
       });
     }
-    // this.coursesService.addCourse(this.course).subscribe(item => item);
     this.router.navigateByUrl('/courses');
   }
 

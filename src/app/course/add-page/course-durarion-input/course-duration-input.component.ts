@@ -13,7 +13,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class CourseDurationInputComponent implements OnInit, ControlValueAccessor {
   public duration;
-  onChange: (value) => void;
+  // onChange: (value) => void;
+  onChange = (value: string) => {};
   onTouched: () => void;
 
   constructor() { }
@@ -23,9 +24,14 @@ export class CourseDurationInputComponent implements OnInit, ControlValueAccesso
   writeValue(value): void {
     this.duration = value;
   }
+
+  // onChangeDuration(e) {
+  //   this.onChange(e);
+  // }
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
