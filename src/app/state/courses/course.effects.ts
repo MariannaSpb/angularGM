@@ -28,24 +28,10 @@ this.actions$.pipe(
   switchMap((action) => (
     this.courseService.getSomeCourses(0, 5).pipe(
       map((data: any) => {
-        console.log('DATAA', data) //[]
         return getSomeCourses({ courses: data });
       }),
     )
   ))
-
-  // withLatestFrom(this.store, (action, state) => ({ action, state })),
-  // exhaustMap((data: any) => {
-  //   console.log('LOADDD data', data)
-  //   return this.courseService
-  //     .getSomeCourses(0,  data.state.courses.courses.length + 5) // data.state.courses.courses.length + 5
-  //     .pipe(
-  //       map((courses: any) => {
-  //         console.log('LOADDD', courses); // [] 5
-  //         return getSomeCourses({ courses });
-  //       })
-  //     );
-  //   })
   )
 );
 
@@ -57,10 +43,25 @@ removeCourse = createEffect(() =>
         map((data: any) => {
           return removeCourseSuccess({ courseId: action.courseId })
         }),
-        //catchError((error) => of(getDeliveryModeError(error)))
       )
     ))
   )
+);
+
+editCourse = createEffect(() =>
+this.actions$.pipe(
+  ofType(editCourse),
+  withLatestFrom(this.store, (action, state) => ({ action, state })),
+  exhaustMap((data: any) => {
+    console.log(data);
+    const id = data.action.currentId;
+    return this.courseService.getCourseById(id).pipe(
+      map((course: any) => {
+        return currentCourse({ currentCourse: course });
+      })
+    );
+  })
+)
 );
 
   constructor(

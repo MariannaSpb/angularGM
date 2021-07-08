@@ -2,7 +2,7 @@
 <div class="container">
     <div class="add-form">
       <div class="add-form-content">
-        <h2>{{ title }}</h2>
+        <h2>{{ modeTitle }}</h2>
         <form [formGroup]="form">
           <div>
             <p class="info-form">
@@ -10,12 +10,16 @@
             </p>
             <input
               type="text"
-              class="title md-input form-control"
+              class="title form-control"
               required
               placeholder="Text input"
-              name="title"
-              formControlName="title"
+              name="name"
+              formControlName="name"
             />
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-notification">
+              <p class="error-text" *ngIf="name.errors?.required">Field should not be empty</p>
+            </div>
+
           </div>
           <div>
             <p class="info-form">
@@ -32,6 +36,9 @@
                 class="form-control"
               ></textarea>
             </mat-form-field>
+            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-notification">
+              <p class="error-text" *ngIf="description.errors?.required">Field should not be empty</p>
+            </div>
           </div>
           <div class="info-field">
             <p class="info-form date">

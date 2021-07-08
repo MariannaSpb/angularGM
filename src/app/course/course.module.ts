@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+
 import { CourseListComponent } from './course-list/course-list.component';
 import { CourseItemComponent } from './course-item/course-item.component';
 import { SharedModule } from '../shared/shared.module';
@@ -13,10 +14,11 @@ import { CourseDurationInputComponent } from './add-page/course-durarion-input/c
 import { CourseAuthorsInputComponent } from './add-page/course-authors-input/course-authors-input.component';
 import { AddCourseContainerComponent } from './add-page/add-course-container/add-course-container.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
-  declarations: [CourseListComponent, AddCourseContainerComponent, CourseItemComponent, ConfirmationModalComponent, CourseDateInputComponent, CourseDurationInputComponent, CourseAuthorsInputComponent],
+  // tslint:disable-next-line: max-line-length
+  declarations: [CourseListComponent, CourseAuthorsInputComponent, AddCourseContainerComponent, CourseItemComponent, ConfirmationModalComponent, CourseDateInputComponent, CourseDurationInputComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -26,8 +28,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    MatChipsModule,
   ],
 
   exports: [CourseListComponent, CourseItemComponent, AddCourseContainerComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CourseModule { }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {  NgModule } from '@angular/core';
+import {  CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +20,8 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { CourseEffects } from './state/courses/course.effects';
 import { UserEffect } from './state/user/user.effects';
-
+import {MatChipsModule} from '@angular/material/chips';
+// import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { UserEffect } from './state/user/user.effects';
     BrowserAnimationsModule,
     LoginPageModule,
     MatDialogModule,
+    MatChipsModule,
     ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([CourseEffects, UserEffect]),
@@ -49,5 +51,6 @@ import { UserEffect } from './state/user/user.effects';
     },
   ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

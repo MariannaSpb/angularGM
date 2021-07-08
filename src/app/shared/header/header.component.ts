@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       select(selectToken))
       .subscribe(token => {
         this.token = token;
-        console.log('TOKEN', this.token);
 
       });
 
@@ -40,7 +39,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     select(selectUser))
     .subscribe(user => {
       this.user = user;
-      console.log('USER HEADER', this.user);
     });
 
    this.authService.subscribeOnLogin(() => {
